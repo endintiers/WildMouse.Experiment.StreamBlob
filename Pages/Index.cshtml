@@ -1,0 +1,39 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Blob Streaming Demo";
+}
+    <form method="post">
+        <div class="form-group row">
+            <label class="control-label col-md-2">Choose File to Download:</label>
+            <select asp-for="SelectedFileName" class="form-control col-md-3">
+                @foreach (var fileName in Model.BlobFileNames)
+                {
+                <!option value="@fileName" @(fileName == Model.SelectedFileName ? "selected" : "")>@fileName</!option>
+                }
+            </select>
+            <label class="col-md-1"></label>
+            <input type="submit" value="Download" id="btnDownload" onclick="downloading();" class="btn btn-primary col-md-2" />
+        </div>
+    </form>
+
+@section scripts
+{
+    <script>
+
+        $('document').ready(function () {
+            $("#btnDownload").html('Analyse');
+            $('#btnDownload').prop('disabled', false);
+        });
+
+        $(document).on('submit', 'form', function () {
+            $('#btnDownload').prop('disabled', true);
+        });
+
+        function downloading() {
+            $("#btnDownload").html('<b><i class="fa fa-cog fa-spin"></i></b>&nbsp;Downloading');
+        }
+
+    </script>
+
+}
