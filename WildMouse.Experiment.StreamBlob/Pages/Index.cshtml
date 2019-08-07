@@ -1,0 +1,18 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "WildMouse Blob Streaming Experiment";
+}
+    <form method="post">
+        <div class="form-group row">
+            <label class="control-label col-md-3">Choose File to Download:</label>
+            <select asp-for="SelectedFileName" class="form-control col-md-3">
+                @foreach (var fileName in Model.BlobFileNames)
+                {
+                    <!option value="@fileName" @(fileName == Model.SelectedFileName ? "selected" : "")>@fileName</!option>
+                }
+            </select>
+            <label class="col-md-1"></label>
+            <input type="submit" value="Download" id="btnDownload" class="btn btn-sm btn-primary col-md-2" />
+        </div>
+    </form>

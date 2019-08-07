@@ -1,17 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Azure.Storage;
+using Microsoft.Azure.Storage.Blob;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace WildMouse.Experiment.StreamBlob
 {
@@ -23,7 +19,6 @@ namespace WildMouse.Experiment.StreamBlob
         {
             _configuration = configuration;
             _containerSASUrl = configuration["ContainerSASUrl"];
-            //_containerSASUrl = "https://fmgsyddevstacdsdmpfiles.blob.core.windows.net/testfiles?st=2019-08-01T07%3A33%3A00Z&se=2055-08-07T07%3A33%3A00Z&sp=rl&sv=2018-03-28&sr=c&sig=EmXM8Ya0YCegUKq2r4SEbLeC%2BK3Yszcph%2Fzeg5VVYVI%3D";
         }
 
         public List<string> BlobFileNames { get; set; }
@@ -45,7 +40,6 @@ namespace WildMouse.Experiment.StreamBlob
         public List<string> GetFileNames(string containerSASUrl)
         {
             var container = new CloudBlobContainer(new Uri(containerSASUrl));
-
             var fileNames = new List<string>();
             var context = new OperationContext();
             var options = new BlobRequestOptions();
@@ -60,7 +54,6 @@ namespace WildMouse.Experiment.StreamBlob
                     fileNames.Add(Path.GetFileName(HttpUtility.UrlDecode(item.Uri.AbsoluteUri)));
                 }
             } while (blobContinuationToken != null);
-
             return fileNames;
         }
     }
