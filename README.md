@@ -1,5 +1,5 @@
 # WildMouse.Experiment.StreamBlob
-Stream Blob from Store via Razor Web App
+Stream blob from Azure storage via razor web app
 
 Working example of responding async to a file request with a blob from Azure Storage.
 The point is that it doesn't copy the (maybe very large) file to memory.
